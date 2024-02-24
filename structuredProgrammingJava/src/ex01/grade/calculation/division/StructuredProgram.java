@@ -9,20 +9,12 @@ public class StructuredProgram {
 	
 	public static void main(String[] args) {
 		
-
 		int menu; //1:INPUT, 2:PRINT, 3:EXIT
 		
 		final int MENU_INPUT = 1;
 		final int MENU_PRINT = 2;
-		final int MENU_EXIT = 3;
-				
-		Scanner scan = new Scanner(System.in);
+		final int MENU_EXIT = 3;		
 		
-		for(int i=0; i<SIZE; i++) {
-			kors[i] = 0;
-		}
-		
-
 		//라벨사용
 		종료: 
 		while(true) {	
@@ -71,6 +63,10 @@ public class StructuredProgram {
 	static void 성적입력() {
 		
 		Scanner scan = new Scanner(System.in);
+		
+		for(int i=0; i<SIZE; i++) {
+			kors[i] = 0;
+		}
 		
 		// 성적 입력 부분
 		System.out.println("┌────────────────────────────────┐");
