@@ -1,55 +1,42 @@
-package ex01.grade.calculation.division;
+package ex03.datastructure.grade;
 
 import java.util.Scanner;
 
-public class StructuredProgram {
+public class ExamProgram {
 
-
-	static final int SIZE = 3;
-	
 	public static void main(String[] args) {
 		
-		int[] korList = new int[SIZE];
+		Exam exam = new Exam();
+				
+		int menu;
+		boolean running = true;
 		
-		int menu; //1:INPUT, 2:PRINT, 3:EXIT
-		
-		final int MENU_INPUT = 1;
-		final int MENU_PRINT = 2;
-		final int MENU_EXIT = 3;		
-		
-		//라벨사용
-		종료: 
-		while(true) {	
+		while (running) {
 			menu = inputMenu();
 			
-			// switch break 는 switch 문만 벗어난다.
 			switch(menu) {
-			case MENU_INPUT:
-				inputKors(korList);
+			case 1:
+				input(exam);
 				break;
-			case MENU_PRINT:
-				printKors(korList);
+			case 2:
+				print(exam);
 				break;
-			case MENU_EXIT:
-				// 라벨사용
-				break 종료;
+			case 3:
+				running = false;
+				break;
 			default:
-				System.out.println("입력 오류 1~3 까지만 입력할 수 있습니다.");
+				System.out.println("메뉴입력 범위는 1~3입니다.");
 			}
-			
 		}
-		System.out.println("Good bye~");
 
 	}
-	
-	// 메뉴입력 
-	static int inputMenu() {
-		
+
+	private static int inputMenu() {
 		Scanner scan = new Scanner(System.in);
 		
 		// 메인 메뉴 부분
 		System.out.println("┌────────────────────────────────┐");
-		System.out.println("│          메인 메뉴                │");
+		System.out.println("│          메인 메뉴             │");
 		System.out.println("└────────────────────────────────┘");
 		System.out.println("\t1.성적입력");
 		System.out.println("\t2.성적출력");
@@ -59,22 +46,20 @@ public class StructuredProgram {
 		
 		return menu;
 	}
-	
-	
-	// 성적입력
-	static void inputKors(int[] kors) {
+
+	private static void input(Exam exam) {
 		
 		Scanner scan = new Scanner(System.in);
-		int kor;
 		
 		// 성적 입력 부분
 		System.out.println("┌────────────────────────────────┐");
-		System.out.println("│          성적 입력                │");
+		System.out.println("│          성적 입력             │");
 		System.out.println("└────────────────────────────────┘");
 		
-		for(int i=0; i<SIZE; i++) {
+		int kor, eng, math;
+		
 			do{
-				System.out.printf("국어%d:", i+1);
+				System.out.print("국어 :");
 				kor = scan.nextInt();
 			
 				if (kor<0 || 100<kor) {					
@@ -82,34 +67,55 @@ public class StructuredProgram {
 				}
 				
 			}while(kor<0 || 100<kor);
-			kors[i] = kor;
-		} 
+			
+			do{
+				System.out.print("영어 :");
+				eng = scan.nextInt();
+			
+				if (eng<0 || 100<eng) {					
+					System.out.println("성정범위(0~100)을 벗어났습니다.");
+				}
+				
+			}while(eng<0 || 100<eng);
+			
+			do{
+				System.out.print("수학 :");
+				math = scan.nextInt();
+			
+				if (math<0 || 100<math) {					
+					System.out.println("성정범위(0~100)을 벗어났습니다.");
+				}
+				
+			}while(math<0 || 100<math);
+			
+			exam.kor = kor;
+			exam.eng = eng;
+			exam.math = math;
 	}
-	
-	// 성적출력
-	static void printKors(int[] kors) {
 
-		int total = 0;
-		float avg;
+	private static void print(Exam exam) {
 		
 		// 성적 출력 부분 
 		System.out.println("┌────────────────────────────────┐");
-		System.out.println("│          성적 출력                │");
+		System.out.println("│          성적 출력             │");
 		System.out.println("└────────────────────────────────┘");
 		
-		// 성적 계산 
-		for(int i=0; i<SIZE; i++)
-			total += kors[i];
-
-		// 평균 계산
-		avg =  total / 3.0f;
-
+		int kor = exam.kor;
+		int eng = exam.eng;
+		int math = exam.math;
+				
 		
-		for(int i=0; i<SIZE; i++) {				
-			System.out.printf("국어%d : %3d\n", i+1, kors[i]);
-		}
+		int total = exam.kor + exam.eng + exam.math;
+		float avg = total / 3.0f;
+		
+		System.out.printf("국어 : %d\n", kor);
+		System.out.printf("영어 : %d\n", eng);
+		System.out.printf("수학 : %d\n", math);
+
 		
 		System.out.printf("총점 : %3d\n", total);
 		System.out.printf("평균 : %6.2f\n", avg);
+		
 	}
+
 }
